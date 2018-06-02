@@ -1,6 +1,5 @@
 package cf.baradist;
 
-import java.util.Map;
 import java.util.Stack;
 
 import static java.lang.Double.NaN;
@@ -20,7 +19,7 @@ public class Main {
 
         Dijkstra dijkstra = new Dijkstra();
         dijkstra.findWeights(matrix, 0, 5);
-        Stack<Map.Entry<Integer, Integer>> path = dijkstra.findPath(5);
+        Stack<Edge> path = dijkstra.findPath(5);
         while (!path.empty()) {
             System.out.println(path.pop());
         }

@@ -1,6 +1,9 @@
 package cf.baradist;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Dijkstra {
@@ -33,13 +36,13 @@ public class Dijkstra {
         System.out.println("The distance from " + from + " to " + to + " is: " + d[to]);
     }
 
-    public Stack<Map.Entry<Integer, Integer>> findPath(int to) {
+    public Stack<Edge> findPath(int to) {
         int current = to;
         int currentFrom;
-        Stack<Map.Entry<Integer, Integer>> path = new Stack<>();
+        Stack<Edge> path = new Stack<>();
         while (current != from) {
             currentFrom = findPrev(current);
-            path.push(new HashMap.SimpleEntry<>(currentFrom, current));
+            path.push(new Edge(currentFrom, current, matrix[currentFrom][current]));
             current = currentFrom;
         }
         return path;
