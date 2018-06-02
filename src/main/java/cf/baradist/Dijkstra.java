@@ -6,12 +6,28 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+import static java.lang.Double.NaN;
+
 public class Dijkstra {
+    static final double INF = Double.POSITIVE_INFINITY;
+
     private Set<Integer> visitedIndexes;
     private Double[][] matrix;
     private int size;
     private Double[] d;
     private int from;
+
+    public Double[][] getGraphMatrix() {
+        int size = 6;
+        Double[][] matrix = new Double[size][];
+        matrix[0] = new Double[]{NaN, 9., INF, 6., 11., INF};
+        matrix[1] = new Double[]{INF, NaN, 8., INF, INF, INF};
+        matrix[2] = new Double[]{INF, INF, NaN, INF, 6., 9.};
+        matrix[3] = new Double[]{INF, 5., 7., NaN, 6., INF};
+        matrix[4] = new Double[]{INF, 6., INF, INF, NaN, 4.};
+        matrix[5] = new Double[]{INF, INF, INF, INF, INF, NaN};
+        return matrix;
+    }
 
     public void findWeights(Double[][] matrix, int from, int to) {
         this.matrix = matrix;
