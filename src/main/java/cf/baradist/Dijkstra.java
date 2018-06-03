@@ -1,5 +1,8 @@
 package cf.baradist;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,28 +12,27 @@ import java.util.stream.Collectors;
 import static java.lang.Double.NaN;
 
 public class Dijkstra {
-    static final double INF = Double.POSITIVE_INFINITY;
-
     private Set<Integer> visitedIndexes;
     private Double[][] matrix;
     private int size;
     private Double[] d;
     private int from;
 
-    public Double[][] getGraphMatrix() {
-        int size = 6;
-        Double[][] matrix = new Double[size][];
-        matrix[0] = new Double[]{NaN, 9., INF, 6., 11., INF};
-        matrix[1] = new Double[]{INF, NaN, 8., INF, INF, INF};
-        matrix[2] = new Double[]{INF, INF, NaN, INF, 6., 9.};
-        matrix[3] = new Double[]{INF, 5., 7., NaN, 6., INF};
-        matrix[4] = new Double[]{INF, 6., INF, INF, NaN, 4.};
-        matrix[5] = new Double[]{INF, INF, INF, INF, INF, NaN};
-        return matrix;
+    public Double[][] readGraphMatrix(String filename) {
+        try {
+            matrix = Files.lines(Paths.get(filename))
+                    .map(line -> {
+                        String[] strings = line.split("\\s+");
+                        return Arrays.stream(strings)
+                                .map(Dijkstra::getDoubleValueOf).toArray(Double[]::new);
+                    }).toArray(Double[][]::new);
+            return matrix;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void findWeights(Double[][] matrix, int from, int to) {
-        this.matrix = matrix;
+    public void findWeights(int from, int to) {
         this.from = from;
         size = matrix.length;
         d = new Double[size];
@@ -62,6 +64,19 @@ public class Dijkstra {
             current = currentFrom;
         }
         return path;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    private static Double getDoubleValueOf(String string) {
+        if ("-".equals(string)) {
+            return NaN;
+        } else if ("∞".equals(string)) {
+            return Double.POSITIVE_INFINITY;
+        }
+        return Double.valueOf(string);
     }
 
     private int findPrev(int current) {
@@ -115,7 +130,11 @@ public class Dijkstra {
 
     private String toString(Double[] doubles) {
         return Arrays.stream(doubles)
-                .map(String::valueOf)
+                .map(Dijkstra::toString)
                 .collect(Collectors.joining("\t"));
+    }
+
+    private static String toString(Double value) {
+        return value == null ? "null" : value.isInfinite() ? "∞" : String.valueOf(value);
     }
 }
