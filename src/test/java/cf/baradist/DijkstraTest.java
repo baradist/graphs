@@ -39,18 +39,4 @@ public class DijkstraTest {
             System.out.println(path.pop());
         }
     }
-
-    @Test
-    public void testReadFromFile() {
-        dijkstra = new Dijkstra();
-        dijkstra.readGraphMatrix("src/test/resources/dijkxtra-example.txt");
-
-        dijkstra.findWeights(0, 5);
-        Stack<Edge> path = dijkstra.findPath(5);
-        assertThat(path.size(), is(2));
-
-        while (!path.empty()) {
-            System.out.println(path.pop());
-        }
-    }
 }
