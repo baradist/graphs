@@ -4,14 +4,16 @@ import java.util.Stack;
 
 public class Main {
 
-
     public static void main(String[] args) {
         Dijkstra dijkstra = new Dijkstra();
-        dijkstra.readGraphMatrix("src/test/resources/dijkxtra-example.txt");
+        String filename = args[0];
+        int from = Integer.valueOf(args[1]);
+        int to = Integer.valueOf(args[2]);
 
-        int last = dijkstra.getSize();
-        dijkstra.findWeights(0, last);
-        Stack<Edge> path = dijkstra.findPath(last);
+        dijkstra.readGraphMatrix(filename);
+
+        dijkstra.findWeights(from, to);
+        Stack<Edge> path = dijkstra.findPath(to);
         while (!path.empty()) {
             System.out.println(path.pop());
         }

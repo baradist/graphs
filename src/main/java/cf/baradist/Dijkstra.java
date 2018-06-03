@@ -26,6 +26,7 @@ public class Dijkstra {
                         return Arrays.stream(strings)
                                 .map(Dijkstra::getDoubleValueOf).toArray(Double[]::new);
                     }).toArray(Double[][]::new);
+            size = matrix.length;
             return matrix;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -34,7 +35,6 @@ public class Dijkstra {
 
     public void findWeights(int from, int to) {
         this.from = from;
-        size = matrix.length;
         d = new Double[size];
         for (int i = 0; i < d.length; i++) {
             d[i] = Double.POSITIVE_INFINITY;
@@ -71,6 +71,7 @@ public class Dijkstra {
     }
 
     public void setMatrix(Double[][] matrix) {
+        size = matrix.length;
         this.matrix = matrix;
     }
 
