@@ -7,10 +7,10 @@ public class Main {
 
     public static void main(String[] args) {
         Dijkstra dijkstra = new Dijkstra();
-        Double[][] matrix = dijkstra.getGraphMatrix();
-        int last = matrix.length - 1;
+        dijkstra.readGraphMatrix("src/test/resources/dijkxtra-example.txt");
 
-        dijkstra.findWeights(matrix, 0, last);
+        int last = dijkstra.getSize();
+        dijkstra.findWeights(0, last);
         Stack<Edge> path = dijkstra.findPath(last);
         while (!path.empty()) {
             System.out.println(path.pop());

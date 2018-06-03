@@ -70,6 +70,10 @@ public class Dijkstra {
         return size;
     }
 
+    public void setMatrix(Double[][] matrix) {
+        this.matrix = matrix;
+    }
+
     private static Double getDoubleValueOf(String string) {
         if ("-".equals(string)) {
             return NaN;
