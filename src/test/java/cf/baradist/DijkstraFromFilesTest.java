@@ -26,6 +26,10 @@ public class DijkstraFromFilesTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"dijkxtra-example.txt", 0, 5},
+                {"dijkstra_01.txt", 0, 5},
+                {"dijkstra_02.txt", 0, 5},
+                {"dijkstra_12.txt", 0, 5},
+                {"dijkstra_18.txt", 0, 5},
         });
     }
 
