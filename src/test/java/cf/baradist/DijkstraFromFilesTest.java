@@ -25,7 +25,7 @@ public class DijkstraFromFilesTest {
     @Parameterized.Parameters(name = "{index}: from {1} to {2}, {0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"dijkxtra-example.txt", 0, 5},
+                {"dijkstra-example.txt", 0, 5},
                 {"dijkstra_01.txt", 0, 5},
                 {"dijkstra_02.txt", 0, 5},
                 {"dijkstra_12.txt", 0, 5},
