@@ -1,37 +1,55 @@
-group 'cf.baradist'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'application'
-
-repositories {
-    mavenCentral()
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
+    }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+subprojects {
+    group 'cf.baradist'
+    version '1.0-SNAPSHOT'
 
+    apply plugin: 'java'
 
-repositories {
-    mavenCentral()
-}
+    if (it.name != 'common') {
+        apply plugin: 'com.github.johnrengelman.shadow'
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+        repositories {
+            mavenCentral()
+        }
+
+        tasks.withType(JavaCompile) {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+
+        apply plugin: 'application'
+
+        mainClassName = 'cf.baradist.Main'
+
+        // generate a fat jar only
+        jar.enabled = false
+        shadowJar {
+            classifier = null
+            version = null
+        }
+
+        repositories {
+            mavenCentral()
+        }
+
+        dependencies {
+            compile project(':common')
+            testCompile 'junit:junit:4.12'
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
 }
 
-mainClassName = 'cf.baradist.Main'
-
-jar {
-    archiveName = 'dijkstra.jar'
-    manifest {
-        attributes 'Build-Jdk': System.getProperty('java.version')
-        attributes 'Built-By': System.getProperty('user.name')
-        attributes 'Creation-Time': new Date().format('MM/dd/yyyy HH:mm:ss.SSS a z', TimeZone.getTimeZone('UTC'))
-        attributes 'Created-By': "Gradle ${project.getGradle().getGradleVersion()}"
-        attributes 'Main-Class': mainClassName
-    }
-}

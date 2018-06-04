@@ -25,6 +25,6 @@ To see few built-in examples, run
 
 For instance: 
 
-`java -jar build/libs/dijkstra.jar src/test/resources/dijkstra-example.txt 0 5`
+`java -jar dijkstra/build/libs/dijkstra.jar dijkstra/src/test/resources/dijkstra-example.txt 0 5`
 
-(on Windows: `java -jar build\libs\dijkstra.jar src\test\resources\dijkstra-example.txt 0 5`)
+(on Windows: `java -jar dijkstra\build\libs\dijkstra.jar dijkstra\src\test\resources\dijkstra-example.txt 0 5`)
