@@ -1,13 +1,10 @@
 package cf.baradist;
 
 import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 
 public class Dijkstra extends AbstractPathFinder {
-    private Set<Integer> visitedIndexes;
-    private Double[] d;
 
+    @Override
     public void findWeights(int from, int to) {
         this.from = from;
         d = new Double[size];
@@ -17,7 +14,7 @@ public class Dijkstra extends AbstractPathFinder {
         visitedIndexes = new HashSet<>(size);
         d[from] = 0.;
 
-        int current = 0;
+        int current = from;
         visitedIndexes.add(current);
         while (current != to) {
             Double[] currentLine = matrix[current];
@@ -32,35 +29,15 @@ public class Dijkstra extends AbstractPathFinder {
 
     private void updateWeightsToNeighbors(int current, Double[] currentLine) {
         for (int i = 0; i < size; i++) {
-            if (!isRealValue(currentLine[i]) || i == current
+            if (!isRealValue(currentLine[i]) || current == i
                     || visitedIndexes.contains(i)) {
                 continue;
             }
-            d[i] = Math.min(d[i], d[current] + currentLine[i]);
-        }
-    }
-
-    public Stack<Edge> findPath(int to) {
-        int current = to;
-        int currentFrom;
-        Stack<Edge> path = new Stack<>();
-        while (current != from) {
-            currentFrom = findPrev(current);
-            path.push(new Edge(currentFrom, current, matrix[currentFrom][current]));
-            current = currentFrom;
-        }
-        return path;
-    }
-
-    private int findPrev(int current) {
-        for (int i = 0; i < size; i++) {
-            if (isRealValue(matrix[i][current]) && visitedIndexes.contains(i)) {
-                if (d[current] == d[i] + matrix[i][current]) {
-                    return i;
-                }
+            double newValue = d[current] + currentLine[i];
+            if (newValue < d[i]) {
+                d[i] = Math.min(d[i], newValue);
             }
         }
-        throw new IllegalArgumentException("Can't find a path");
     }
 
     private int nextTheClosestIndex() {
