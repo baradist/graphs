@@ -30,6 +30,7 @@ public class DijkstraFromFilesTest {
                 {"dijkstra_02.txt", 0, 5},
                 {"dijkstra_12.txt", 0, 5},
                 {"dijkstra_18.txt", 0, 5},
+                {"dijkstra_09.txt", 0, 5},
         });
     }
 
