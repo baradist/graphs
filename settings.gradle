@@ -2,3 +2,5 @@ include 'common'
 include 'dijkstra'
 
 rootProject.name = 'graph'
+include 'bellman-moore'
+
