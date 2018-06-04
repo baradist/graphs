@@ -18,16 +18,14 @@ public class Dijkstra {
     private Double[] d;
     private int from;
 
-    public Double[][] readGraphMatrix(String filename) {
+    public void readGraphMatrix(String filename) {
         try {
             matrix = Files.lines(Paths.get(filename))
-                    .map(line -> {
-                        String[] strings = line.split("\\s+");
-                        return Arrays.stream(strings)
-                                .map(Dijkstra::getDoubleValueOf).toArray(Double[]::new);
-                    }).toArray(Double[][]::new);
+                    .map(line ->
+                            Arrays.stream(line.split("\\s+"))
+                                    .map(Dijkstra::getDoubleValueOf).toArray(Double[]::new))
+                    .toArray(Double[][]::new);
             size = matrix.length;
-            return matrix;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -105,7 +103,7 @@ public class Dijkstra {
         }
     }
 
-    private boolean isRealValue(Double value) {
+    private static boolean isRealValue(Double value) {
         return !(value.isNaN() || value.isInfinite());
     }
 
