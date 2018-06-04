@@ -1,2 +1,4 @@
-rootProject.name = 'graph'
+include 'common'
+include 'dijkstra'
 
+rootProject.name = 'graph'
